@@ -145,6 +145,7 @@ static const SupportedDevice supportedDevices[] = {
     { VENDOR_NYCE, "3043", emberMacPrefix }, // NYCE ceiling motion sensor
     { VENDOR_PHILIPS, "RWL020", philipsMacPrefix }, // Hue dimmer switch
     { VENDOR_PHILIPS, "RWL021", philipsMacPrefix }, // Hue dimmer switch
+    { VENDOR_PHILIPS, "ROM001", philipsMacPrefix }, // Hue smart button
     { VENDOR_PHILIPS, "SML00", philipsMacPrefix }, // Hue motion sensor
     { VENDOR_SAMJIN, "motion", samjinMacPrefix }, // Smarthings GP-U999SJVLBAA (Samjin) Motion Sensor
     { VENDOR_SAMJIN, "multi", samjinMacPrefix }, // Smarthings (Samjin) Multipurpose Sensor

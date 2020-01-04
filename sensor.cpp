@@ -131,6 +131,16 @@ static const Sensor::ButtonMap philipsDimmerSwitchMap[] = {
     { Sensor::ModeNone,             0x00, 0x0000, 0x00, 0,    0,                                           nullptr }
 };
 
+static const Sensor::ButtonMap philipsSmartButtonMap[] = {
+//    mode                          ep    cluster cmd   param button                                       name
+    { Sensor::ModeScenes,           0x01, 0x0006, 0x01, 0,    S_BUTTON_1 + S_BUTTON_ACTION_SHORT_RELEASED, "On" },
+    { Sensor::ModeScenes,           0x01, 0x0006, 0x40, 0,    S_BUTTON_1 + S_BUTTON_ACTION_SHORT_RELEASED, "Off with effect" },
+    { Sensor::ModeScenes,           0x01, 0x0008, 0x02, 0,    S_BUTTON_1 + S_BUTTON_ACTION_HOLD,           "Step up" },
+    { Sensor::ModeScenes,           0x01, 0x0008, 0x03, 0,    S_BUTTON_1 + S_BUTTON_ACTION_LONG_RELEASED,  "Dimm stop" },
+    { Sensor::ModeScenes,           0x01, 0x0008, 0x02, 1,    S_BUTTON_1 + S_BUTTON_ACTION_HOLD,           "Step down" },
+    { Sensor::ModeNone,             0x00, 0x0000, 0x00, 0,    0,                                           nullptr }
+};
+
 static const Sensor::ButtonMap ikeaOnOffMap[] = {
 //    mode                          ep    cluster cmd   param button                                       name
     { Sensor::ModeScenes,           0x01, 0x0006, 0x01, 0,    S_BUTTON_1 + S_BUTTON_ACTION_SHORT_RELEASED, "On" },
@@ -1146,6 +1156,7 @@ const Sensor::ButtonMap *Sensor::buttonMap()
         else if (manufacturer == QLatin1String("Philips"))
         {
             if      (modelid.startsWith(QLatin1String("RWL02")))  { m_buttonMap = philipsDimmerSwitchMap; }
+            else if (modelid.startsWith(QLatin1String("ROM00")))  { m_buttonMap = philipsSmartButtonMap; }
         }
         else if (manufacturer == QLatin1String("Busch-Jaeger"))
         {

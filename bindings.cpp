@@ -1060,7 +1060,8 @@ bool DeRestPluginPrivate::sendConfigureReportingRequest(BindingTask &bt)
             rq.maxInterval = 7200;       // value used by Hue bridge
             rq.reportableChange8bit = 0; // value used by Hue bridge
         }
-        else if (sensor && sensor->modelId().startsWith(QLatin1String("RWL02"))) // Hue dimmer switch
+        else if (sensor && (sensor->modelId().startsWith(QLatin1String("RWL02")) || // Hue dimmer switch
+                sensor->modelId().startsWith(QLatin1String("ROM00"))))  // Hue smart button
         {
             rq.minInterval = 300;        // value used by Hue bridge
             rq.maxInterval = 300;        // value used by Hue bridge
@@ -1462,7 +1463,8 @@ bool DeRestPluginPrivate::sendConfigureReportingRequest(BindingTask &bt)
     {
         Sensor *sensor = dynamic_cast<Sensor *>(bt.restNode);
 
-        if (sensor && sensor->modelId().startsWith(QLatin1String("RWL02"))) // Hue dimmer switch
+        if (sensor && (sensor->modelId().startsWith(QLatin1String("RWL02")) || // Hue dimmer switch
+                sensor->modelId().startsWith(QLatin1String("ROM00"))))  // Hue smart button
         {
             deCONZ::NumericUnion val;
             val.u64 = 0;
@@ -1738,6 +1740,7 @@ bool DeRestPluginPrivate::checkSensorBindingsForAttributeReporting(Sensor *senso
         // Philips
         sensor->modelId().startsWith(QLatin1String("SML00")) ||
         sensor->modelId().startsWith(QLatin1String("RWL02")) ||
+        sensor->modelId().startsWith(QLatin1String("ROM00")) ||
         // ubisys
         sensor->modelId().startsWith(QLatin1String("C4")) ||
         sensor->modelId().startsWith(QLatin1String("D1")) ||
@@ -1965,7 +1968,8 @@ bool DeRestPluginPrivate::checkSensorBindingsForAttributeReporting(Sensor *senso
         }
         else if (*i == VENDOR_CLUSTER_ID)
         {
-            if (sensor->modelId().startsWith(QLatin1String("RWL02"))) // Hue dimmer switch
+            if (sensor->modelId().startsWith(QLatin1String("RWL02")) || // Hue dimmer switch
+                sensor->modelId().startsWith(QLatin1String("ROM00"))) // Hue smart button
             {
                 val = sensor->getZclValue(*i, 0x0000); // button event
             }
@@ -2170,7 +2174,8 @@ bool DeRestPluginPrivate::checkSensorBindingsForClientClusters(Sensor *sensor)
     //quint8 srcEndpoint = sensor->fingerPrint().endpoint;
     std::vector<quint16> clusters;
 
-    if (sensor->modelId().startsWith(QLatin1String("RWL02"))) // Hue dimmer switch
+    if (sensor->modelId().startsWith(QLatin1String("RWL02")) || // Hue dimmer switch
+        sensor->modelId().startsWith(QLatin1String("ROM00")))
     {
         srcEndpoints.push_back(0x01);
         clusters.push_back(ONOFF_CLUSTER_ID);
@@ -2418,7 +2423,8 @@ void DeRestPluginPrivate::checkSensorGroup(Sensor *sensor)
         }
     }
 
-    if (sensor->modelId().startsWith(QLatin1String("RWL02"))) // Hue dimmer switch
+    if (sensor->modelId().startsWith(QLatin1String("RWL02")) || // Hue dimmer switch
+        sensor->modelId().startsWith(QLatin1String("ROM00")))
     {
         if (!group)
         {
